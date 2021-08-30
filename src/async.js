@@ -1,46 +1,48 @@
-const fs = require("fs/promises");
-require("./types");
+const fs = require('fs/promises')
+require('./types')
 
 class Todos {
   /**
    * @type {Todo[]}
    */
-  #todos;
+  #todos
 
   constructor() {
-    this.#todos = [];
+    this.#todos = []
   }
 
   list() {
-    return [...this.#todos];
+    return [...this.#todos]
   }
 
   add(title) {
     this.#todos.push({
       title,
       completed: false,
-    });
+    })
   }
 
   complete(title) {
     if (this.#todos.length === 0)
-      throw new Error(`You have no TODOs stored. Please add one first.`);
+      throw new Error(`You have no TODOs stored. Please add one first.`)
 
-    const todo = this.#todos.find(({ title: _title }) => title === _title);
-    if (todo) todo.completed = true;
-    else throw new Error(`Todo with title "${title}" was not found.`);
+    const todo = this.#todos.find(({ title: _title }) => title === _title)
+
+    if (!todo) throw new Error(`Todo with title "${title}" was not found.`)
+
+    todo.completed = true
   }
 
   async saveToFile() {
-    const csvHeader = "Title,Completed\n";
+    const csvHeader = 'Title,Completed\n'
 
     const csvFileContent = this.#todos.reduce(
       (content, todo) => (content += `${todo.title},${todo.completed}\n`),
       csvHeader
-    );
+    )
 
-    await fs.writeFile("todos.csv", csvFileContent);
+    await fs.writeFile('todos.csv', csvFileContent)
   }
 }
 
-module.exports = Todos;
+module.exports = Todos

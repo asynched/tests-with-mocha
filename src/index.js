@@ -1,34 +1,36 @@
-require("./types");
+require('./types')
 
 class Todos {
   /**
    * @type {Todo[]}
    */
-  #todos;
+  #todos
 
   constructor() {
-    this.#todos = [];
+    this.#todos = []
   }
 
   list() {
-    return [...this.#todos];
+    return [...this.#todos]
   }
 
   add(title) {
     this.#todos.push({
       title,
       completed: false,
-    });
+    })
   }
 
   complete(title) {
     if (this.#todos.length === 0)
-      throw new Error(`You have no TODOs stored. Please add one first.`);
+      throw new Error(`You have no TODOs stored. Please add one first.`)
 
-    const todo = this.#todos.find(({ title: _title }) => title === _title);
-    if (todo) todo.completed = true;
-    else throw new Error(`Todo with title "${title}" was not found.`);
+    const todo = this.#todos.find(({ title: _title }) => title === _title)
+
+    if (!todo) throw new Error(`Todo with title "${title}" was not found.`)
+
+    todo.completed = true
   }
 }
 
-module.exports = Todos;
+module.exports = Todos
