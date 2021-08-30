@@ -1,0 +1,12 @@
+{
+  "name": "mocha",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "mocha": "^9.1.1"
+  }
+}
